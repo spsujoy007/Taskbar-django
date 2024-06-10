@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+    <div>
+        <!-- <h1>This is home</h1> -->
+        
+        <div class="row">
+        
+        {% if data %}
+        {% for task in data %}
+        <div class="col-sm-4 mb-3 ">
+          <div class="card" >
+            <div class="card-body">
+              <div style="display: flex; justify-content: right;">
+                <p style="font-size: 15px; margin: 5px;">{{task.assign_date}}</p>
+              </div>
+              <h5 class="card-title text-primary  text-uppercase fs-3">{{task.title}}</h5>
+              <p class="card-text">{{task.task_details}}</p>
+              <div class="my-2">
+                
+                <p class="mb-2">Topics:</p>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                  {% for cat in task.category.all %}
+                    <button disabled style="width: fit-content; border: 0; border-radius: 20px; color:whitesmoke; padding: 3px 20px; background-color: #adceff; color: #0D6EFD; font-weight: 700; text-transform: uppercase; font-size: 12px;">{{cat.name}}</button>
+                  {% endfor %}
+                </div>
+                    
+              </div>
+                
+                {% if task.is_completed == False%}
+                <div class="mb-2 d-flex gap-2 mt-4">
+                    <a href="{% url 'edit_task' task.id %}" class="btn btn-primary w-50">Edit</a>
+                    <a href="{% url 'delete_task' task.id %}" class="btn btn-primary w-50">Delete</a>
+                </div>
+                {% else %}
+                <div class="mb-2 d-flex gap-2">
+                    <button disabled  class="btn btn-primary w-100">Completed</button>
+                    
+                </div>
+                {% endif %}
+                    
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+      {% else %}
+      <h1>No task added...</h1>
+    {% endif %}
+      </div>
+            
+    </div>
+{% endblock contents %}
+    

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block contents %}
+    <div style="width: 600px; margin: auto;">
+        <h1 class="text-uppercase text-center mb-5 text-primary" style="border-bottom: 2px solid #0D6EFD; padding-bottom: 15px;">Add Category</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{form | crispy}}
+        <button class="btn btn-primary w-100 mt-2" type="submit">Submit</button>
+        </form>
+
+        <div class="mt-5 pt-5">
+            <p>Previous categories list: </p>
+            <div class="d-flex align-items-center gap-2 ">
+                
+                {% if categories %}
+                    {% for cat in categories %}
+                    <button class="btn btn-primary" role="contentinfo">{{cat.name}}</button>
+                    {% endfor %}
+
+                    {% else %}
+                    <h5>No category available...</h5>
+                {% endif %}
+            </div>
+                
+        </div>
+    </div>
+{% endblock contents %}
+    
